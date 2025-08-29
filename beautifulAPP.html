@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow - 高端美容预约APP原型</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-light: #E6B8DF;
+            --primary: #B98EC7;
+            --primary-dark: #8A5A9B;
+            --gray-light: #F8F5F9;
+            --gray: #D8D0DC;
+            --gray-dark: #4A4A4A;
+            --gold: #D4AF37;
+            --white: #FFFFFF;
+            --shadow: 0 8px 24px rgba(138, 90, 155, 0.15);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #faf7fb 0%, #f2ecf5 100%);
+            color: var(--gray-dark);
+            line-height: 1.6;
+            padding: 30px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-dark);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .prototype-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+        }
+        
+        .screen {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 700px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .screen:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(138, 90, 155, 0.2);
+        }
+        
+        .screen-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .screen-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        
+        .screen-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .screen-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .screen-icons i {
+            font-size: 1.1rem;
+        }
+        
+        .screen-content {
+            padding: 24px;
+            flex: 1;
+            overflow-y: auto;
+            background: var(--gray-light);
+        }
+        
+        .app-bar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 16px 0;
+            background: var(--white);
+            border-top: 1px solid var(--gray);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--gray-dark);
+            font-size: 0.85rem;
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+        }
+        
+        .nav-icon {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        
+        /* 首页样式 */
+        .home-search {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .home-search i {
+            color: var(--primary);
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .home-search input {
+            border: none;
+            outline: none;
+            flex: 1;
+            font-size: 1rem;
+            color: var(--gray-dark);
+        }
+        
+        .home-search input::placeholder {
+            color: var(--gray);
+        }
+        
+        .banner {
+            height: 160px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%238A5A9B' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .category-item {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .category-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gray-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+        
+        .category-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-dark);
+        }
+        
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 20px 0 15px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--gray);
+            margin-left: 15px;
+        }
+        
+        .service-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .service-item {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .service-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: var(--gray);
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .service-info {
+            flex: 1;
+        }
+        
+        .service-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--gray-dark);
+        }
+        
+        .service-duration {
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+        
+        .service-price {
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        
+        /* 其他界面的通用样式 */
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .therapist-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: var(--white);
+            border-radius: 16px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .therapist-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gray);
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .therapist-info {
+            flex: 1;
+        }
+        
+        .therapist-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--gray-dark);
+        }
+        
+        .therapist-specialty {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+        }
+        
+        .rating i {
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-right: 3px;
+        }
+        
+        .rating-count {
+            font-size: 0.85rem;
+            color: var(--gray-dark);
+            margin-left: 5px;
+        }
+        
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .time-slot {
+            padding: 10px;
+            text-align: center;
+            background: var(--white);
+            border: 1px solid var(--gray);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .time-slot.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        
+        .time-slot:not(.selected):hover {
+            border-color: var(--primary);
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(138, 90, 155, 0.3);
+        }
+        
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: var(--white);
+            border: 1px solid var(--gray);
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+        
+        .payment-method.selected {
+            border-color: var(--primary);
+            background: var(--gray-light);
+        }
+        
+        .payment-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--gray);
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .payment-name {
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gray);
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .profile-info h2 {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--gray-dark);
+        }
+        
+        .profile-info p {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .menu-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .menu-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--gray-light);
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .menu-name {
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .menu-arrow {
+            color: var(--gray);
+        }
+        
+        .appointment-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .appointment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .appointment-date {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        
+        .appointment-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-confirmed {
+            background: rgba(46, 204, 113, 0.2);
+            color: #27ae60;
+        }
+        
+        .appointment-details {
+            display: flex;
+            margin-bottom: 12px;
+        }
+        
+        .appointment-service {
+            font-weight: 600;
+            flex: 1;
+        }
+        
+        .appointment-price {
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        
+        .appointment-therapist {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .appointment-therapist-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gray);
+            margin-right: 12px;
+        }
+        
+        .appointment-therapist-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .appointment-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            background: var(--white);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .action-btn.primary {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        
+        .action-btn:not(.primary):hover {
+            border-color: var(--primary);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .prototype-grid {
+                grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .prototype-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        /* 屏幕指示器 */
+        .screen-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--gold);
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            z-index: 10;
+        }
+        
+        /* 美化滚动条 */
+        .screen-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .screen-content::-webkit-scrollbar-track {
+            background: var(--gray-light);
+            border-radius: 3px;
+        }
+        
+        .screen-content::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 3px;
+        }
+        
+        .screen-content::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Glow Beauty</h1>
+            <p class="subtitle">高端美容预约APP原型设计</p>
+        </header>
+        
+        <div class="prototype-grid">
+            <!-- 首页 -->
+            <div class="screen">
+                <div class="screen-indicator">1</div>
+                <div class="screen-header">
+                    <div class="screen-title">首页</div>
+                    <div class="screen-icons">
+                        <i class="fas fa-bell"></i>
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <div class="screen-content">
+                    <div class="home-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="搜索服务或美容师">
+                    </div>
+                    
+                    <div class="banner">
+                        限时7折特惠
+                    </div>
+                    
+                    <div class="category-grid">
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-spa"></i>
+                            </div>
+                            <div class="category-name">面部护理</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="category-name">眼部护理</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-magic"></i>
+                            </div>
+                            <div class="category-name">美甲美睫</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-cut"></i>
+                            </div>
+                            <div class="category-name">美发造型</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">推荐服务</div>
+                    
+                    <div class="service-list">
+                        <div class="service-item">
+                            <div class="service-image"></div>
+                            <div class="service-info">
+                                <div class="service-name">深层清洁护理</div>
+                                <div class="service-duration">60分钟</div>
+                            </div>
+                            <div class="service-price">¥398</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-image"></div>
+                            <div class="service-info">
+                                <div class="service-name">黄金焕肤疗程</div>
+                                <div class="service-duration">90分钟</div>
+                            </div>
+                            <div class="service-price">¥698</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-image"></div>
+                            <div class="service-info">
+                                <div class="service-name">水光针注射</div>
+                                <div class="service-duration">45分钟</div>
+                            </div>
+                            <div class="service-price">¥1280</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-bar">
+                    <div class="nav-item active">
+                        <div class="nav-icon"><i class="fas fa-home"></i></div>
+                        <div>首页</div>
+                    </div>
+                    <div class="nav-item">
+                        <div class="nav-icon"><i class="fas fa-calendar"></i></div>
+                        <div>预约</div>
+                    </div>
+                    <div class="nav-item">
+                        <div class="nav-icon"><i class="fas fa-heart"></i></div>
+                        <div>收藏</div>
+                    </div>
+                    <div class="nav-item">
+                        <div class="nav-icon"><i class="fas fa-user"></i></div>
+                        <div>我的</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 服务分类页 -->
+            <div class="screen">
+                <div class="screen-indicator">2</div>
+                <div class="screen-header">
+                    <div class="screen-title">服务分类</div>
+                    <div class="screen-icons">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="screen-content">
+                    <div class="category-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-spa"></i>
+                            </div>
+                            <div class="category-name">面部护理</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="category-name">眼部护理</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-magic"></i>
+                            </div>
+                            <div class="category-name">美甲美睫</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-cut"></i>
+                            </div>
+                            <div class="category-name">美发造型</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-smile"></i>
+                            </div>
+                            <div class="category-name">半永久妆</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-hand-sparkles"></i>
+                            </div>
+                            <div class="category-name">手部护理</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="category-name">身体护理</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-stroopwafel"></i>
+                            </div>
+                            <div class="category-name">脱毛服务</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="category-name">高端定制</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-title">热门服务</div>
+                    
+                    <div class="service-list">
+                        <div class="service-item">
+                            <div class="service-image"></div>
+                            <div class="service-info">
+                                <div class="service-name">黄金焕肤疗程</div>
+                                <div class="service-duration">90分钟 · 李美容师</div>
+                            </div>
+                            <div class="service-price">¥698</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-image"></div>
+                            <div class="service-info">
+                                <div class="service-name">水光针注射</div>
+                                <div class="service-duration">45分钟 · 张医生</div>
+                            </div>
+                            <div class="service-price">¥1280</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-image"></div>
+                            <div class="service-info">
+                                <div class="service-name">精致日式美甲</div>
+                                <div class="service-duration">120分钟 · 王美甲师</div>
+                            </div>
+                            <div class="service-price">¥358</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 服务详情页 -->
+            <div class="screen">
+                <div class="screen-indicator">3</div>
+                <div class="screen-header">
+                    <div class="screen-title">服务详情</div>
+                    <div class="screen-icons">
+                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                </div>
+                <div class="screen-content">
+                    <div style="height: 200px; background: var(--gray); border-radius: 16px; margin-bottom: 20px;"></div>
+                    
+                    <div class="card">
+                        <h2 style="margin-bottom: 10px; color: var(--primary-dark);">黄金焕肤疗程</h2>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <div style="color: var(--primary);">90分钟</div>
+                            <div style="font-weight: 700; font-size: 1.4rem; color: var(--primary-dark);">¥698</div>
+                        </div>
+                        <div style="color: var(--gray-dark); line-height: 1.6; margin-bottom: 15px;">
+                            使用24K黄金纳米颗粒与多种珍贵成分，深层滋养肌肤，提亮肤色，减少细纹，恢复肌肤年轻活力。
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--gray); margin-right: 12px;"></div>
+                            <div>
+                                <div style="font-weight: 500;">李美容师</div>
+                                <div style="font-size: 0.85rem; color: var(--primary);">高级美容顾问</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 style="margin-bottom: 15px; color: var(--primary-dark);">服务包含</h3>
+                        <ul style="list-style-type: none;">
+                            <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-light); display: flex; align-items: center;">
+                                <i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i>
+                                深层清洁与去角质
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-light); display: flex; align-items: center;">
+                                <i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i>
+                                黄金纳米颗粒导入
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-light); display: flex; align-items: center;">
+                                <i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i>
+                                高保湿面膜护理
+                            </li>
+                            <li style="padding: 8px 0; display: flex; align-items: center;">
+                                <i class="fas fa-check" style="color: var(--primary); margin-right: 10px;"></i>
+                                抗氧化精华护理
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <button class="btn">立即预约</button>
+                </div>
+            </div>
+            
+            <!-- 美容师列表页 -->
+            <div class="screen">
+                <div class="screen-indicator">4</div>
+                <div class="screen-header">
+                    <div class="screen-title">选择美容师</div>
+                    <div class="screen-icons">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                </div>
+                <div class="screen-content">
+                    <div class="therapist-card">
+                        <div class="therapist-avatar"></div>
+                        <div class="therapist-info">
+                            <div class="therapist-name">李美容师</div>
+                            <div class="therapist-specialty">高级美容顾问 · 8年经验</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <div class="rating-count">4.5 (128)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="therapist-card">
+                        <div class="therapist-avatar"></div>
+                        <div class="therapist-info">
+                            <div class="therapist-name">张医生</div>
+                            <div class="therapist-specialty">医学美容专家 · 12年经验</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <div class="rating-count">4.9 (256)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="therapist-card">
+                        <div class="therapist-avatar"></div>
+                        <div class="therapist-info">
+                            <div class="therapist-name">王美甲师</div>
+                            <div class="therapist-specialty">日式美甲专家 · 6年经验</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <div class="rating-count">4.8 (192)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="therapist-card">
+                        <div class="therapist-avatar"></div>
+                        <div class="therapist-info">
+                            <div class="therapist-name">刘造型师</div>
+                            <div class="therapist-specialty">发型设计总监 · 10年经验</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <div class="rating-count">4.6 (167)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="therapist-card">
+                        <div class="therapist-avatar"></div>
+                        <div class="therapist-info">
+                            <div class="therapist-name">陈护理师</div>
+                            <div class="therapist-specialty">皮肤管理专家 · 7年经验</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <div class="rating-count">4.7 (203)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 预约时间选择页 -->
+            <div class="screen">
+                <div class="screen-indicator">5</div>
+                <div class="screen-header">
+                    <div class="screen-title">选择时间</div>
+                    <div class="screen-icons">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                </div>
+                <div class="screen-content">
+                    <div class="card">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 60px; height: 60px; border-radius: 12px; background: var(--gray); margin-right: 15px;"></div>
+                            <div>
+                                <div style="font-weight: 600; margin-bottom: 5px;">黄金焕肤疗程</div>
+                                <div style="color: var(--primary);">90分钟 · ¥698</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--gray); margin-right: 15px;"></div>
+                            <div>
+                                <div style="font-weight: 500; margin-bottom: 5px;">李美容师</div>
+                                <div style="color: var(--primary); font-size: 0.9rem;">高级美容顾问</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 style="margin-bottom: 15px; color: var(--primary-dark);">选择日期</h3>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.9rem; color: var(--gray-dark);">今天</div>
+                                <div style="font-weight: 700; font-size: 1.4rem; color: var(--primary);">15</div>
+                                <div style="font-size: 0.8rem; color: var(--gray-dark);">4月</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.9rem; color: var(--gray-dark);">周二</div>
+                                <div style="font-weight: 700; font-size: 1.4rem;">16</div>
+                                <div style="font-size: 0.8rem; color: var(--gray-dark);">4月</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.9rem; color: var(--gray-dark);">周三</div>
+                                <div style="font-weight: 700; font-size: 1.4rem;">17</div>
+                                <div style="font-size: 0.8rem; color: var(--gray-dark);">4月</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.9rem; color: var(--gray-dark);">周四</div>
+                                <div style="font-weight: 700; font-size: 1.4rem;">18</div>
+                                <div style="font-size: 0.8rem; color: var(--gray-dark);">4月</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.9rem; color: var(--gray-dark);">周五</div>
+                                <div style="font-weight: 700; font-size: 1.4rem;">19</div>
+                                <div style="font-size: 0.8rem; color: var(--gray-dark);">4月</div>
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin-bottom: 15px; color: var(--primary-dark);">选择时间</h3>
+                        <div class="time-slots">
+                            <div class="time-slot">09:00</div>
+                            <div class="time-slot">10:00</div>
+                            <div class="time-slot">11:00</div>
+                            <div class="time-slot">13:00</div>
+                            <div class="time-slot">14:00</div>
+                            <div class="time-slot">15:00</div>
+                            <div class="time-slot">16:00</div>
+                            <div class="time-slot selected">17:00</div>
+                            <div class="time-slot">18:00</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn">确认预约时间</button>
+                </div>
+            </div>
+            
+            <!-- 支付页 -->
+            <div class="screen">
+                <div class="screen-indicator">6</div>
+                <div class="screen-header">
+                    <div class="screen-title">确认支付</div>
+                    <div class="screen-icons">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                </div>
+                <div class="screen-content">
+                    <div class="card">
+                        <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary-dark);">订单详情</h2>
+                        
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <div style="color: var(--gray-dark);">服务项目</div>
+                            <div style="font-weight: 500;">黄金焕肤疗程</div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <div style="color: var(--gray-dark);">美容师</div>
+                            <div style="font-weight: 500;">李美容师</div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <div style="color: var(--gray-dark);">日期时间</div>
+                            <div style="font-weight: 500;">4月18日 17:00</div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <div style="color: var(--gray-dark);">服务时长</div>
+                            <div style="font-weight: 500;">90分钟</div>
+                        </div>
+                        
+                        <div style="height: 1px; background: var(--gray); margin: 20px 0;"></div>
+                        
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <div style="color: var(--gray-dark);">服务费用</div>
+                            <div style="font-weight: 500;">¥698</div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <div style="color: var(--gray-dark);">优惠折扣</div>
+                            <div style="font-weight: 500; color: var(--primary);">-¥100</div>
+                        </div>
+                        
+                        <div style="height: 1px; background: var(--gray); margin: 20px 0;"></div>
+                        
+                        <div style="display: flex; justify-content: space-between;">
+                            <div style="font-weight: 700; color: var(--gray-dark);">总计</div>
+                            <div style="font-weight: 700; font-size: 1.2rem; color: var(--primary-dark);">¥598</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 style="margin-bottom: 15px; color: var(--primary-dark);">选择支付方式</h3>
+                        
+                        <div class="payment-methods">
+                            <div class="payment-method selected">
+                                <div class="payment-icon">
+                                    <i class="fab fa-alipay"></i>
+                                </div>
+                                <div class="payment-name">支付宝</div>
+                                <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                            </div>
+                            
+                            <div class="payment-method">
+                                <div class="payment-icon">
+                                    <i class="fab fa-weixin"></i>
+                                </div>
+                                <div class="payment-name">微信支付</div>
+                                <i class="far fa-circle" style="color: var(--gray);"></i>
+                            </div>
+                            
+                            <div class="payment-method">
+                                <div class="payment-icon">
+                                    <i class="far fa-credit-card"></i>
+                                </div>
+                                <div class="payment-name">银行卡支付</div>
+                                <i class="far fa-circle" style="color: var(--gray);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn">确认支付 ¥598</button>
+                </div>
+            </div>
+            
+            <!-- 个人中心页 -->
+            <div class="screen">
+                <div class="screen-indicator">7</div>
+                <div class="screen-header">
+                    <div class="screen-title">个人中心</div>
+                    <div class="screen-icons">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                </div>
+                <div class="screen-content">
+                    <div class="profile-header">
+                        <div class="profile-avatar"></div>
+                        <div class="profile-info">
+                            <h2>张美丽</h2>
+                            <p>黄金会员</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-around; text-align: center; margin-bottom: 20px;">
+                            <div>
+                                <div style="font-size: 1.4rem; font-weight: 700; color: var(--primary-dark);">5</div>
+                                <div style="font-size: 0.9rem; color: var(--gray-dark);">优惠券</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 1.4rem; font-weight: 700; color: var(--primary-dark);">1,280</div>
+                                <div style="font-size: 0.9rem; color: var(--gray-dark);">积分</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 1.4rem; font-weight: 700; color: var(--primary-dark);">12</div>
+                                <div style="font-size: 0.9rem; color: var(--gray-dark);">收藏</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-list">
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="far fa-calendar-check"></i>
+                            </div>
+                            <div class="menu-name">我的预约</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="far fa-heart"></i>
+                            </div>
+                            <div class="menu-name">我的收藏</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="far fa-credit-card"></i>
+                            </div>
+                            <div class="menu-name">支付管理</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="menu-name">我的地址</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <div class="menu-name">会员权益</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="menu-name">帮助中心</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-bar">
+                    <div class="nav-item">
+                        <div class="nav-icon"><i class="fas fa-home"></i></div>
+                        <div>首页</div>
+                    </div>
+                    <div class="nav-item">
+                        <div class="nav-icon"><i class="fas fa-calendar"></i></div>
+                        <div>预约</div>
+                    </div>
+                    <div class="nav-item">
+                        <div class="nav-icon"><i class="fas fa-heart"></i></div>
+                        <div>收藏</div>
+                    </div>
+                    <div class="nav-item active">
+                        <div class="nav-icon"><i class="fas fa-user"></i></div>
+                        <div>我的</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 我的预约页 -->
+            <div class="screen">
+                <div class="screen-indicator">8</div>
+                <div class="screen-header">
+                    <div class="screen-title">我的预约</div>
+                    <div class="screen-icons">
+                        <i class="fas fa-filter"></i>
+                    </div>
+                </div>
+                <div class="screen-content">
+                    <div style="display: flex; border-bottom: 1px solid var(--gray); margin-bottom: 20px;">
+                        <div style="padding: 10px 15px; font-weight: 600; color: var(--primary); border-bottom: 2px solid var(--primary);">进行中</div>
+                        <div style="padding: 10px 15px; font-weight: 500; color: var(--gray-dark);">已完成</div>
+                        <div style="padding: 10px 15px; font-weight: 500; color: var(--gray-dark);">已取消</div>
+                    </div>
+                    
+                    <div class="appointment-card">
+                        <div class="appointment-header">
+                            <div class="appointment-date">2023年4月18日 17:00</div>
+                            <div class="appointment-status status-confirmed">已确认</div>
+                        </div>
+                        
+                        <div class="appointment-details">
+                            <div class="appointment-service">黄金焕肤疗程</div>
+                            <div class="appointment-price">¥598</div>
+                        </div>
+                        
+                        <div class="appointment-therapist">
+                            <div class="appointment-therapist-avatar"></div>
+                            <div class="appointment-therapist-name">李美容师 · 高级美容顾问</div>
+                        </div>
+                        
+                        <div class="appointment-actions">
+                            <button class="action-btn">联系客服</button>
+                            <button class="action-btn primary">查看详情</button>
+                        </div>
+                    </div>
+                    
+                    <div class="appointment-card">
+                        <div class="appointment-header">
+                            <div class="appointment-date">2023年4月20日 14:30</div>
+                            <div class="appointment-status status-confirmed">已确认</div>
+                        </div>
+                        
+                        <div class="appointment-details">
+                            <div class="appointment-service">精致日式美甲</div>
+                            <div class="appointment-price">¥358</div>
+                        </div>
+                        
+                        <div class="appointment-therapist">
+                            <div class="appointment-therapist-avatar"></div>
+                            <div class="appointment-therapist-name">王美甲师 · 日式美甲专家</div>
+                        </div>
+                        
+                        <div class="appointment-actions">
+                            <button class="action-btn">联系客服</button>
+                            <button class="action-btn primary">查看详情</button>
+                        </div>
+                    </div>
+                    
+                    <div class="appointment-card">
+                        <div class="appointment-header">
+                            <div class="appointment-date">2023年4月22日 11:00</div>
+                            <div class="appointment-status status-confirmed">待确认</div>
+                        </div>
+                        
+                        <div class="appointment-details">
+                            <div class="appointment-service">水光针注射</div>
+                            <div class="appointment-price">¥1,280</div>
+                        </div>
+                        
+                        <div class="appointment-therapist">
+                            <div class="appointment-therapist-avatar"></div>
+                            <div class="appointment-therapist-name">张医生 · 医学美容专家</div>
+                        </div>
+                        
+                        <div class="appointment-actions">
+                            <button class="action-btn">取消预约</button>
+                            <button class="action-btn primary">立即支付</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 收藏页 -->
+            <div class="screen">
+                <div class="screen-indicator">9</div>
+                <div class="screen-header">
+                    <div class="screen-title">我的收藏</div>
+                    <div class="screen-icons">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                </div>
+                <div class="screen-content">
+                    <div style="display: flex; border-bottom: 1px solid var(--gray); margin-bottom: 20px;">
+                        <div style="padding: 10px 15px; font-weight: 600; color: var(--primary); border-bottom: 2px solid var(--primary);">服务</div>
+                        <div style="padding: 10px 15px; font-weight: 500; color: var(--gray-dark);">美容师</div>
+                        <div style="padding: 10px 15px; font-weight: 500; color: var(--gray-dark);">文章</div>
+                    </div>
+                    
+                    <div class="service-list">
+                        <div class="service-item">
+                            <div class="service-image"></div>
+                            <div class="service-info">
+                                <div class="service-name">黄金焕肤疗程</div>
+                                <div class="service-duration">90分钟 · 李美容师</div>
+                            </div>
+                            <div class="service-price">¥698</div>
+                            <i class="fas fa-heart" style="color: var(--primary); margin-left: 15px; font-size: 1.2rem;"></i>
+                        </div>
+                        
+                        <div class="service-item">
+                            <div class="service-image"></div>
+                            <div class="service-info">
+                                <div class="service-name">水光针注射</div>
+                                <div class="service-duration">45分钟 · 张医生</div>
+                            </div>
+                            <div class="service-price">¥1,280</div>
+                            <i class="fas fa-heart" style="color: var(--primary); margin-left: 15px; font-size: 1.2rem;"></i>
+                        </div>
+                        
+                        <div class="service-item">
+                            <div class="service-image"></div>
+                            <div class="service-info">
+                                <div class="service-name">精致日式美甲</div>
+                                <div class="service-duration">120分钟 · 王美甲师</div>
+                            </div>
+                            <div class="service-price">¥358</div>
+                            <i class="fas fa-heart" style="color: var(--primary); margin-left: 15px; font-size: 1.2rem;"></i>
+                        </div>
+                        
+                        <div class="service-item">
+                            <div class="service-image"></div>
+                            <div class="service-info">
+                                <div class="service-name">头皮护理SPA</div>
+                                <div class="service-duration">75分钟 · 刘造型师</div>
+                            </div>
+                            <div class="service-price">¥458</div>
+                            <i class="fas fa-heart" style="color: var(--primary); margin-left: 15px; font-size: 1.2rem;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-bar">
+                    <div class="nav-item">
+                        <div class="nav-icon"><i class="fas fa-home"></i></div>
+                        <div>首页</div>
+                    </div>
+                    <div class="nav-item">
+                        <div class="nav-icon"><i class="fas fa-calendar"></i></div>
+                        <div>预约</div>
+                    </div>
+                    <div class="nav-item active">
+                        <div class="nav-icon"><i class="fas fa-heart"></i></div>
+                        <div>收藏</div>
+                    </div>
+                    <div class="nav-item">
+                        <div class="nav-icon"><i class="fas fa-user"></i></div>
+                        <div>我的</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 设置页 -->
+            <div class="screen">
+                <div class="screen-indicator">10</div>
+                <div class="screen-header">
+                    <div class="screen-title">设置</div>
+                    <div class="screen-icons">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <div class="screen-content">
+                    <div class="menu-list">
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-user-edit"></i>
+                            </div>
+                            <div class="menu-name">编辑个人信息</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="menu-name">账号与安全</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="menu-name">通知设置</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="menu-name">隐私设置</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div class="menu-name">语言设置</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <div class="menu-name">主题与外观</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="menu-name">清理缓存</div>
+                            <div style="font-size: 0.9rem; color: var(--gray-dark);">125.6 MB</div>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="menu-name">帮助与反馈</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                        
+                        <div class="menu-item">
+                            <div class="menu-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div class="menu-name">关于我们</div>
+                            <i class="fas fa-chevron-right menu-arrow"></i>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" style="background: transparent; color: var(--primary); border: 1px solid var(--primary); margin-top: 30px;">
+                        退出登录
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 简单的交互效果
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.addEventListener('click', function() {
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // 在实际APP中这里会有页面跳转逻辑
+                console.log('导航到: ' + this.querySelector('div').textContent);
+            });
+        });
+    </script>
+</body>
+</html>
